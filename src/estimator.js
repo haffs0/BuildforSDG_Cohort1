@@ -7,7 +7,7 @@ const convertWeeksAndMonthsToDays = (periodType, timeToElapse) => {
   }
   return {
     days: estimateTime,
-    power: Math.floor(estimateTime / 3)
+    power: Math.trunc(estimateTime / 3)
   };
 };
 const covid19ImpactEstimator = (data) => {
@@ -35,16 +35,12 @@ const covid19ImpactEstimator = (data) => {
   impact.severeCasesByRequestedTime = 0.15 * impact.infectionsByRequestedTime;
   severeImpact.severeCasesByRequestedTime = 0.15 * severeImpact.infectionsByRequestedTime;
   const thirtyFivePercent = 0.35 * totalHospitalBeds;
-  // eslint-disable-next-line no-console
-  console.log(thirtyFivePercent);
   const impactBed = thirtyFivePercent - impact.severeCasesByRequestedTime;
-  // eslint-disable-next-line no-console
-  console.log(impactBed, Math.floor(impactBed));
-  impact.hospitalBedsByRequestedTime = Math.floor(impactBed);
+  impact.hospitalBedsByRequestedTime = Math.trunc(impactBed);
   const difference = thirtyFivePercent - severeImpact.severeCasesByRequestedTime;
-  severeImpact.hospitalBedsByRequestedTime = Math.floor(difference);
-  const impactInfections = Math.floor(impact.infectionsByRequestedTime);
-  const severeInfections = Math.floor(severeImpact.infectionsByRequestedTime);
+  severeImpact.hospitalBedsByRequestedTime = Math.trunc(difference);
+  const impactInfections = Math.trunc(impact.infectionsByRequestedTime);
+  const severeInfections = Math.trunc(severeImpact.infectionsByRequestedTime);
   impact.casesForICUByRequestedTime = 0.05 * impactInfections;
   severeImpact.casesForICUByRequestedTime = 0.05 * severeInfections;
   impact.casesForVentilatorsByRequestedTime = 0.02 * impactInfections;
