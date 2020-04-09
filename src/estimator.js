@@ -1,6 +1,4 @@
 const convertWeeksAndMonthsToDays = (periodType, timeToElapse) => {
-  // eslint-disable-next-line no-console
-  console.log(periodType, timeToElapse);
   let estimateTime = parseInt(timeToElapse, 10);
   if (periodType === 'weeks') {
     estimateTime *= 7;
@@ -36,7 +34,7 @@ const covid19ImpactEstimator = (data) => {
   severeImpact.infectionsByRequestedTime = severeImpact.currentlyInfected * (2 ** power);
   impact.severeCasesByRequestedTime = 0.15 * impact.infectionsByRequestedTime;
   severeImpact.severeCasesByRequestedTime = 0.15 * severeImpact.infectionsByRequestedTime;
-  const thirtyFivePercent = 0.35 * totalHospitalBeds;
+  const thirtyFivePercent = Math.floor(0.35 * totalHospitalBeds);
   impact.hospitalBedsByRequestedTime = thirtyFivePercent - impact.severeCasesByRequestedTime;
   const difference = thirtyFivePercent - severeImpact.severeCasesByRequestedTime;
   severeImpact.hospitalBedsByRequestedTime = difference;
