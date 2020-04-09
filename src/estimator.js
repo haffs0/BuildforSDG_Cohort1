@@ -21,8 +21,8 @@ const covid19ImpactEstimator = (data) => {
     totalHospitalBeds
   } = data;
   const {
-    avgDailyIncomeInUSD, 
-    avgDailyIncomePopulation 
+    avgDailyIncomeInUSD,
+    avgDailyIncomePopulation
   } = region;
   const impact = {};
   const severeImpact = {};
