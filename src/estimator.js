@@ -21,7 +21,7 @@ const covid19ImpactEstimator = (data) => {
     totalHospitalBeds
   } = data;
   // eslint-disable-next-line no-console
-  console.log(region);
+  console.log(data);
   const {
     avgDailyIncomeInUSD,
     avgDailyIncomePopulation
@@ -45,18 +45,14 @@ const covid19ImpactEstimator = (data) => {
   severeImpact.hospitalBedsByRequestedTime = Math.trunc(difference);
   const impactInfections = Math.trunc(impact.infectionsByRequestedTime);
   const severeInfections = Math.trunc(severeImpact.infectionsByRequestedTime);
-  impact.casesForICUByRequestedTime = 0.05 * impactInfections;
-  severeImpact.casesForICUByRequestedTime = 0.05 * severeInfections;
-  impact.casesForVentilatorsByRequestedTime = 0.02 * impactInfections;
-  severeImpact.casesForVentilatorsByRequestedTime = 0.02 * severeInfections;
+  impact.casesForICUByRequestedTime = Math.trunc(0.05 * impactInfections);
+  severeImpact.casesForICUByRequestedTime = Math.trunc(0.05 * severeInfections);
+  impact.casesForVentilatorsByRequestedTime = Math.trunc(0.02 * impactInfections);
+  severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(0.02 * severeInfections);
   const amountImpact = impactInfections * avgDailyIncomePopulation * avgDailyIncomeInUSD * days;
-  // eslint-disable-next-line no-console
-  console.log(parseFloat(amountImpact.toFixed(2)));
-  impact.dollarsInFlight = Math.trunc(parseFloat(amountImpact.toFixed(2)));
+  impact.dollarsInFlight = parseFloat(amountImpact.toFixed(2));
   const amountInFlight = severeInfections * avgDailyIncomePopulation * avgDailyIncomeInUSD * days;
-  // eslint-disable-next-line no-console
-  console.log(parseFloat(amountInFlight.toFixed(2)));
-  severeImpact.dollarsInFlight = Math.trunc(parseFloat(amountInFlight.toFixed(2)));
+  severeImpact.dollarsInFlight = parseFloat(amountInFlight.toFixed(2));
   const result = {
     data: { ...data },
     impact,
