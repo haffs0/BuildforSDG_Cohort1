@@ -1,6 +1,4 @@
 const convertWeeksAndMonthsToDays = (periodType, timeToElapse) => {
-  // eslint-disable-next-line no-console
-  console.log(periodType, timeToElapse);
   let estimateTime = parseInt(timeToElapse, 10);
   if (periodType === 'weeks') {
     estimateTime *= 7;
@@ -20,8 +18,6 @@ const covid19ImpactEstimator = (data) => {
     timeToElapse,
     totalHospitalBeds
   } = data;
-  // eslint-disable-next-line no-console
-  console.log(data);
   const {
     avgDailyIncomeInUSD,
     avgDailyIncomePopulation
@@ -45,14 +41,14 @@ const covid19ImpactEstimator = (data) => {
   severeImpact.hospitalBedsByRequestedTime = Math.trunc(difference);
   const impactInfections = Math.trunc(impact.infectionsByRequestedTime);
   const severeInfections = Math.trunc(severeImpact.infectionsByRequestedTime);
-  impact.casesForICUByRequestedTime = Math.trunc(0.05 * impactInfections);
-  severeImpact.casesForICUByRequestedTime = Math.trunc(0.05 * severeInfections);
-  impact.casesForVentilatorsByRequestedTime = Math.trunc(0.02 * impactInfections);
-  severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(0.02 * severeInfections);
-  const amountImpact = impactInfections * avgDailyIncomePopulation * avgDailyIncomeInUSD * days;
-  impact.dollarsInFlight = parseFloat(amountImpact.toFixed(2));
-  const amountInFlight = severeInfections * avgDailyIncomePopulation * avgDailyIncomeInUSD * days;
-  severeImpact.dollarsInFlight = parseFloat(amountInFlight.toFixed(2));
+  impact.casesForICUByRequestedTime = 0.05 * impactInfections;
+  severeImpact.casesForICUByRequestedTime = 0.05 * severeInfections;
+  impact.casesForVentilatorsByRequestedTime = 0.02 * impactInfections;
+  severeImpact.casesForVentilatorsByRequestedTime = 0.02 * severeInfections;
+  const amountImpact = (impactInfections * avgDailyIncomePopulation * avgDailyIncomeInUSD) / days;
+  impact.dollarsInFlight = Math.trunc(amountImpact);
+  const amountInFlight = (severeInfections * avgDailyIncomePopulation * avgDailyIncomeInUSD) / days;
+  severeImpact.dollarsInFlight = Math.trunc(amountInFlight);
   const result = {
     data: { ...data },
     impact,
