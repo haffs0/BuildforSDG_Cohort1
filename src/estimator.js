@@ -18,6 +18,7 @@ const covid19ImpactEstimator = (data) => {
     timeToElapse,
     totalHospitalBeds
   } = data;
+  console.log(data);
   const {
     avgDailyIncomeInUSD,
     avgDailyIncomePopulation
