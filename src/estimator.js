@@ -1,5 +1,4 @@
 const convertWeeksAndMonthsToDays = (periodType, timeToElapse) => {
-  //yes
   let estimateTime = parseInt(timeToElapse, 10);
   if (periodType === 'weeks') {
     estimateTime *= 7;
